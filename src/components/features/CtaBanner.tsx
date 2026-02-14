@@ -3,10 +3,12 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const CtaBanner = () => {
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: '-80px' });
+    const t = useTranslation();
 
     return (
         <section className="relative bg-white py-16 md:py-24 overflow-hidden" id="cta-banner">
@@ -38,7 +40,7 @@ export const CtaBanner = () => {
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.6, delay: 0.2 }}
                             >
-                                Zacznij już dziś
+                                {t.ctaBanner.badge}
                             </motion.span>
 
                             <motion.h2
@@ -47,7 +49,7 @@ export const CtaBanner = () => {
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.7, delay: 0.3 }}
                             >
-                                Gotowy na zmianę?
+                                {t.ctaBanner.title}
                             </motion.h2>
 
                             <motion.p
@@ -56,7 +58,7 @@ export const CtaBanner = () => {
                                 animate={isInView ? { opacity: 1 } : {}}
                                 transition={{ duration: 0.6, delay: 0.45 }}
                             >
-                                Dobierz idealną dietę lub sprawdź, czy dowozimy w Twoją okolicę.
+                                {t.ctaBanner.description}
                             </motion.p>
 
                             <motion.div
@@ -67,7 +69,7 @@ export const CtaBanner = () => {
                             >
                                 <Link href="/dobierz-diete">
                                     <button className="bg-white text-black px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-100 transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-white/10 flex items-center gap-3 group">
-                                        Dobierz Dietę
+                                        {t.ctaBanner.ctaMatch}
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                     </button>
                                 </Link>
@@ -75,7 +77,7 @@ export const CtaBanner = () => {
                                 <Link href="/#hero">
                                     <button className="border border-white/20 text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-white/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-3 group backdrop-blur-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-0.5 transition-transform"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                        Sprawdź Dowóz
+                                        {t.ctaBanner.ctaCheck}
                                     </button>
                                 </Link>
                             </motion.div>

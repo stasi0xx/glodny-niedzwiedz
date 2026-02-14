@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
@@ -9,8 +11,11 @@ import { SampleMenu } from '@/components/features/SampleMenu';
 import { WhyUs } from '@/components/features/WhyUs';
 import { Testimonials } from '@/components/features/Testimonials';
 import { CtaBanner } from '@/components/features/CtaBanner';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Home() {
+  const t = useTranslation();
+
   return (
     <div className="flex flex-col min-h-screen font-sans selection:bg-pink-200">
 
@@ -29,29 +34,29 @@ export default function Home() {
             {/* Typography Content */}
             <div className="space-y-8">
               <span className="inline-block py-1.5 px-4 rounded-full border border-black/5 bg-white/40 backdrop-blur-md text-xs font-bold tracking-widest uppercase text-gray-900 mb-2 shadow-sm">
-                Premium Diet Catering
+                {t.hero.badge}
               </span>
 
               <h1 className="text-6xl md:text-8xl font-bold font-display tracking-tighter text-[#111111] leading-[0.9] text-balance drop-shadow-sm">
-                Zdrowie, <br />
-                <span className="italic font-serif font-light text-[#111111] opacity-90">Smak &</span> <br />
-                Styl Życia.
+                {t.hero.title1} <br />
+                <span className="italic font-serif font-light text-[#111111] opacity-90">{t.hero.title2}</span> <br />
+                {t.hero.title3}
               </h1>
 
               <p className="text-xl md:text-2xl font-light text-gray-800/90 max-w-lg leading-relaxed text-balance">
-                Catering, który rozumie Twoje potrzeby. <span className="font-medium text-black">Bez kompromisów.</span>
+                {t.hero.subtitle} <span className="font-medium text-black">{t.hero.subtitleBold}</span>
               </p>
 
               <div className="pt-8 flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
                 <Link href="/dobierz-diete">
                   <button className="bg-black text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-800 transition-transform hover:scale-105 active:scale-95 shadow-2xl shadow-black/20 flex items-center gap-3 group">
-                    Dobierz Dietę
+                    {t.hero.ctaMatch}
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </button>
                 </Link>
 
                 <Link href="/oferta" className="group flex items-center gap-2 text-black font-semibold text-lg hover:underline underline-offset-4 decoration-2">
-                  <span>Zobacz Menu</span>
+                  <span>{t.hero.ctaMenu}</span>
                 </Link>
               </div>
 
@@ -68,8 +73,8 @@ export default function Home() {
                   <div className="flex justify-between items-center mb-8">
                     <span className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center font-bold text-xl">01.</span>
                     <div className="text-right">
-                      <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">Lokalizacja</p>
-                      <p className="font-bold text-lg text-gray-900">Warszawa & okolice</p>
+                      <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">{t.hero.locationLabel}</p>
+                      <p className="font-bold text-lg text-gray-900">{t.hero.locationValue}</p>
                     </div>
                   </div>
                   <DeliveryChecker />
@@ -80,7 +85,7 @@ export default function Home() {
               <div className="absolute top-1/2 -right-8 -translate-y-1/2 bg-black text-white p-6 rounded-[2rem] shadow-xl rotate-6 animate-float z-20" style={{ animationDuration: '6s' }}>
                 <p className="font-display font-bold text-3xl">4.9</p>
                 <div className="flex text-yellow-400 text-sm">★★★★★</div>
-                <p className="text-xs text-gray-400 mt-1">TrustPilot</p>
+                <p className="text-xs text-gray-400 mt-1">{t.hero.trustpilot}</p>
               </div>
             </div>
 
@@ -93,35 +98,35 @@ export default function Home() {
         <div className="flex w-max animate-marquee whitespace-nowrap">
           {/* First Copy */}
           <div className="flex items-center gap-12 px-6 font-display text-4xl font-bold uppercase text-white tracking-widest">
-            <span>Świeżość</span> <span className="text-emerald-500">•</span>
-            <span>Eko</span> <span className="text-emerald-500">•</span>
-            <span>Smak</span> <span className="text-emerald-500">•</span>
-            <span>Zdrowie</span> <span className="text-emerald-500">•</span>
-            <span>Wygoda</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.freshness}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.eco}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.taste}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.health}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.comfort}</span> <span className="text-emerald-500">•</span>
           </div>
           {/* Duplicate Copy for infinite loop */}
           <div className="flex items-center gap-12 px-6 font-display text-4xl font-bold uppercase text-white tracking-widest">
-            <span>Świeżość</span> <span className="text-emerald-500">•</span>
-            <span>Eko</span> <span className="text-emerald-500">•</span>
-            <span>Smak</span> <span className="text-emerald-500">•</span>
-            <span>Zdrowie</span> <span className="text-emerald-500">•</span>
-            <span>Wygoda</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.freshness}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.eco}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.taste}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.health}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.comfort}</span> <span className="text-emerald-500">•</span>
           </div>
           {/* Third Copy for buffer on wide screens */}
           <div className="flex items-center gap-12 px-6 font-display text-4xl font-bold uppercase text-white tracking-widest">
-            <span>Świeżość</span> <span className="text-emerald-500">•</span>
-            <span>Eko</span> <span className="text-emerald-500">•</span>
-            <span>Smak</span> <span className="text-emerald-500">•</span>
-            <span>Zdrowie</span> <span className="text-emerald-500">•</span>
-            <span>Wygoda</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.freshness}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.eco}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.taste}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.health}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.comfort}</span> <span className="text-emerald-500">•</span>
           </div>
           {/* Fourth Copy for buffer on very wide screens */}
           <div className="flex items-center gap-12 px-6 font-display text-4xl font-bold uppercase text-white tracking-widest">
-            <span>Świeżość</span> <span className="text-emerald-500">•</span>
-            <span>Eko</span> <span className="text-emerald-500">•</span>
-            <span>Smak</span> <span className="text-emerald-500">•</span>
-            <span>Zdrowie</span> <span className="text-emerald-500">•</span>
-            <span>Wygoda</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.freshness}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.eco}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.taste}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.health}</span> <span className="text-emerald-500">•</span>
+            <span>{t.marquee.comfort}</span> <span className="text-emerald-500">•</span>
           </div>
         </div>
       </section>
@@ -132,14 +137,14 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-2xl">
               <h2 className="text-5xl md:text-7xl font-bold font-display tracking-tighter text-black mb-6 leading-[0.9]">
-                Wybierz swój <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5757] to-pink-500">Cel.</span>
+                {t.quickChoice.title1} <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5757] to-pink-500">{t.quickChoice.title2}</span>
               </h2>
-              <p className="text-xl text-gray-600 max-w-lg">Dopasuj dietę do swojego stylu życia. Nie wiesz co wybrać? Rozwiąż szybki quiz.</p>
+              <p className="text-xl text-gray-600 max-w-lg">{t.quickChoice.description}</p>
             </div>
             <Link href="/dobierz-diete">
               <button className="bg-black text-white px-8 py-4 rounded-full font-bold shadow-xl hover:bg-gray-800 transition-transform active:scale-95 flex items-center gap-3 text-lg group">
-                Rozwiąż Quiz
+                {t.quickChoice.ctaQuiz}
                 <span className="bg-white/20 group-hover:bg-white/30 rounded-full w-8 h-8 flex items-center justify-center text-sm transition-colors">?</span>
               </button>
             </Link>
@@ -148,12 +153,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card Items */}
             {[
-              { id: '01', title: 'Redukcja', subtitle: 'Skuteczna utrata wagi', gradient: 'from-pink-100 to-pink-50', href: '/oferta?diet=redukcja', image: null },
-              { id: '02', title: 'Sport', subtitle: 'Paliwo dla aktywnych', gradient: 'from-orange-100 to-orange-50', href: '/oferta?diet=sport', image: null },
-              { id: '03', title: 'Wege', subtitle: 'Siła roślin', gradient: 'from-green-100 to-green-50', href: '/oferta?diet=wege', image: null },
-              { id: '04', title: 'Bez laktozy', subtitle: 'Lekkostrawna', gradient: 'from-sky-100 to-sky-50', href: '/oferta?diet=bez-laktozy', image: null },
-              { id: '05', title: 'Low IG', subtitle: 'Stabilny cukier', gradient: 'from-purple-100 to-purple-50', href: '/oferta?diet=low-ig', image: null },
-              { id: '06', title: 'Keto', subtitle: 'Energia z tłuszczów', gradient: 'from-yellow-100 to-yellow-50', href: '/oferta?diet=keto', image: null },
+              { id: '01', title: t.quickChoice.diets.reduction.title, subtitle: t.quickChoice.diets.reduction.subtitle, gradient: 'from-pink-100 to-pink-50', href: '/oferta?diet=redukcja', image: null },
+              { id: '02', title: t.quickChoice.diets.sport.title, subtitle: t.quickChoice.diets.sport.subtitle, gradient: 'from-orange-100 to-orange-50', href: '/oferta?diet=sport', image: null },
+              { id: '03', title: t.quickChoice.diets.wege.title, subtitle: t.quickChoice.diets.wege.subtitle, gradient: 'from-green-100 to-green-50', href: '/oferta?diet=wege', image: null },
+              { id: '04', title: t.quickChoice.diets.lactoseFree.title, subtitle: t.quickChoice.diets.lactoseFree.subtitle, gradient: 'from-sky-100 to-sky-50', href: '/oferta?diet=bez-laktozy', image: null },
+              { id: '05', title: t.quickChoice.diets.lowIg.title, subtitle: t.quickChoice.diets.lowIg.subtitle, gradient: 'from-purple-100 to-purple-50', href: '/oferta?diet=low-ig', image: null },
+              { id: '06', title: t.quickChoice.diets.keto.title, subtitle: t.quickChoice.diets.keto.subtitle, gradient: 'from-yellow-100 to-yellow-50', href: '/oferta?diet=keto', image: null },
             ].map((item) => (
               <Link href={item.href} key={item.id} className="group relative bg-[#F8F8F8] rounded-[3rem] p-8 min-h-[500px] flex flex-col justify-between overflow-hidden hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-2xl hover:shadow-gray-200/50 hover:bg-[#F2F2F2]">
 

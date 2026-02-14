@@ -1,22 +1,27 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-
-const footerLinks = {
-    oferta: [
-        { label: 'Nasze diety', href: '/oferta' },
-        { label: 'Cennik', href: '/cennik' },
-        { label: 'Aktualne menu', href: '/menu' },
-        { label: 'Strefa dostaw', href: '/dowoz' },
-    ],
-    pomoc: [
-        { label: 'FAQ', href: '/faq' },
-        { label: 'Blog', href: '/blog' },
-        { label: 'Kontakt', href: '/kontakt' },
-        { label: 'Regulamin', href: '/regulamin' },
-    ],
-};
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const Footer: React.FC = () => {
+    const t = useTranslation();
+
+    const footerLinks = {
+        oferta: [
+            { label: t.footer.columns.ourDiets, href: '/oferta' },
+            { label: t.footer.columns.pricing, href: '/cennik' },
+            { label: t.footer.columns.currentMenu, href: '/menu' },
+            { label: t.footer.columns.deliveryZone, href: '/dowoz' },
+        ],
+        pomoc: [
+            { label: t.header.nav.faq, href: '/faq' },
+            { label: t.header.nav.blog, href: '/blog' },
+            { label: t.footer.columns.contact, href: '/kontakt' },
+            { label: t.footer.columns.regulations, href: '/regulamin' },
+        ],
+    };
+
     return (
         <footer className="relative bg-black text-white overflow-hidden">
             {/* Subtle decorative gradients */}
@@ -41,7 +46,7 @@ export const Footer: React.FC = () => {
                             </span>
                         </Link>
                         <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-                            Zdrowy catering dietetyczny dla wymagających. Smacznie, zdrowo i pod same drzwi – codziennie od 5:30.
+                            {t.footer.brandDesc}
                         </p>
 
                         {/* Social icons */}
@@ -77,7 +82,7 @@ export const Footer: React.FC = () => {
 
                     {/* Links Columns */}
                     <div className="lg:col-span-2">
-                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-5">Oferta</h4>
+                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-5">{t.footer.columns.offer}</h4>
                         <ul className="space-y-3">
                             {footerLinks.oferta.map((link) => (
                                 <li key={link.href}>
@@ -90,7 +95,7 @@ export const Footer: React.FC = () => {
                     </div>
 
                     <div className="lg:col-span-2">
-                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-5">Pomoc</h4>
+                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-5">{t.footer.columns.help}</h4>
                         <ul className="space-y-3">
                             {footerLinks.pomoc.map((link) => (
                                 <li key={link.href}>
@@ -104,7 +109,7 @@ export const Footer: React.FC = () => {
 
                     {/* Contact Column */}
                     <div className="lg:col-span-3">
-                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-5">Kontakt</h4>
+                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-5">{t.footer.columns.contact}</h4>
                         <ul className="space-y-3 text-sm">
                             <li className="flex items-center gap-3 text-white/50">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white/25 flex-shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -125,14 +130,14 @@ export const Footer: React.FC = () => {
                 {/* Bottom bar */}
                 <div className="border-t border-white/[0.06] py-6 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-white/25">
-                        © {new Date().getFullYear()} Głodny Niedźwiedź. Wszelkie prawa zastrzeżone.
+                        © {new Date().getFullYear()} Głodny Niedźwiedź. {t.footer.copyright}
                     </p>
                     <div className="flex items-center gap-6">
                         <Link href="/polityka-prywatnosci" className="text-xs text-white/25 hover:text-white/50 transition-colors">
-                            Polityka prywatności
+                            {t.footer.privacyPolicy}
                         </Link>
                         <Link href="/regulamin" className="text-xs text-white/25 hover:text-white/50 transition-colors">
-                            Regulamin
+                            {t.footer.columns.regulations}
                         </Link>
                     </div>
                 </div>

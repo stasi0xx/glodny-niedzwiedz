@@ -2,18 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-const navLinks = [
-    { label: 'Oferta', href: '/oferta' },
-    { label: 'Menu', href: '/menu' },
-    { label: 'Cennik', href: '/cennik' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Blog', href: '/blog' },
-];
+import { LanguageSwitcher } from '@/components/features/LanguageSwitcher';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const t = useTranslation();
+
+    const navLinks = [
+        { label: t.header.nav.offer, href: '/oferta' },
+        { label: t.header.nav.menu, href: '/menu' },
+        { label: t.header.nav.pricing, href: '/cennik' },
+        { label: t.header.nav.faq, href: '/faq' },
+        { label: t.header.nav.blog, href: '/blog' },
+    ];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,19 +32,22 @@ export const Header: React.FC = () => {
             <div className="bg-gradient-to-r from-[#1a1025] via-[#15132b] to-[#0f1a2e] py-1.5 text-center text-[11px] font-medium text-white/90 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 flex-wrap">
                     <span className="flex items-center gap-1.5">
-                        <span>🚚</span> Darmowa dostawa od 20 dni
+                        <span>🚚</span> {t.header.delivery}
                     </span>
                     <span className="hidden sm:inline-flex items-center gap-1.5">
                         <span className="w-[3px] h-[3px] rounded-full bg-white/30"></span>
                     </span>
                     <span className="hidden sm:flex items-center gap-1.5">
-                        <span>🥬</span> Lokalne produkty
+                        <span>🥬</span> {t.header.localProducts}
                     </span>
                     <span className="hidden sm:inline-flex items-center gap-1.5">
                         <span className="w-[3px] h-[3px] rounded-full bg-white/30"></span>
                     </span>
                     <span className="flex items-center gap-1.5">
-                        <span>⭐</span> 4.9/5 w Opiniach
+                        <span>⭐</span> {t.header.reviews}
+                    </span>
+                    <span className="hidden sm:inline-flex items-center gap-1.5">
+                        <span className="w-[3px] h-[3px] rounded-full bg-white/30"></span>
                     </span>
                 </div>
             </div>
@@ -78,14 +84,17 @@ export const Header: React.FC = () => {
 
                     {/* Right side – desktop */}
                     <div className="hidden md:flex items-center gap-3">
+                        {/* Language Switcher */}
+                        <LanguageSwitcher />
+
                         <Link href="/dowoz">
                             <button className="text-sm font-semibold text-gray-500 hover:text-black px-4 py-2 rounded-full hover:bg-black/[0.04] transition-all duration-200">
-                                Sprawdź dowóz
+                                {t.header.checkDelivery}
                             </button>
                         </Link>
                         <Link href="/dobierz-diete">
                             <button className="bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-all hover:scale-[1.03] active:scale-[0.97] shadow-md shadow-black/10 flex items-center gap-2 group">
-                                Dobierz dietę
+                                {t.header.chooseDiet}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-0.5 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                             </button>
                         </Link>
@@ -100,9 +109,14 @@ export const Header: React.FC = () => {
 
                     {/* Right side – mobile: CTA + hamburger */}
                     <div className="md:hidden flex items-center gap-2">
+                        {/* Language Switcher Mobile */}
+                        <div className="scale-90">
+                            <LanguageSwitcher />
+                        </div>
+
                         <Link href="/dowoz">
                             <button className="text-xs font-bold text-black border border-black/10 px-4 py-2 rounded-full hover:bg-black/[0.04] transition-all">
-                                Sprawdź dowóz
+                                {t.header.checkDelivery}
                             </button>
                         </Link>
                         <button
@@ -139,7 +153,7 @@ export const Header: React.FC = () => {
                             className="text-base font-medium text-gray-700 hover:text-black hover:bg-black/[0.03] px-4 py-3 rounded-2xl transition-all"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            Koszyk
+                            {t.header.cart}
                         </Link>
 
                         <div className="h-[1px] bg-black/5 my-3"></div>
@@ -147,12 +161,12 @@ export const Header: React.FC = () => {
                         <div className="flex flex-col gap-3 mt-1">
                             <Link href="/dowoz" onClick={() => setIsMenuOpen(false)}>
                                 <button className="w-full py-3.5 rounded-full border border-black/10 text-sm font-bold text-black hover:bg-black/[0.03] transition-all">
-                                    Sprawdź dowóz
+                                    {t.header.checkDelivery}
                                 </button>
                             </Link>
                             <Link href="/dobierz-diete" onClick={() => setIsMenuOpen(false)}>
                                 <button className="w-full py-3.5 rounded-full bg-black text-white text-sm font-bold hover:bg-gray-800 transition-all shadow-md shadow-black/10 flex items-center justify-center gap-2">
-                                    Dobierz dietę
+                                    {t.header.chooseDiet}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                 </button>
                             </Link>

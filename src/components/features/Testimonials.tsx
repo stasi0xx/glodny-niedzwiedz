@@ -3,122 +3,95 @@
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
-const testimonials = [
-    // Row 1 – scrolls right
-    [
-        {
-            id: 1,
-            name: 'Marta K.',
-            role: 'Klientka od 8 miesięcy',
-            rating: 5,
-            text: 'Najlepsza dieta pudełkowa jaką próbowałam. Każdy posiłek to małe kulinarne dzieło sztuki – i wreszcie schudłam 12 kg!',
-            avatar: '👩‍💼',
-            accent: 'from-pink-400 to-rose-500',
-        },
-        {
-            id: 2,
-            name: 'Tomek W.',
-            role: 'Klient od roku',
-            rating: 5,
-            text: 'Przeszedłem z innego cateringu i różnica jest kosmiczna. Smak, świeżość, punktualność – wszystko na najwyższym poziomie.',
-            avatar: '👨‍💻',
-            accent: 'from-blue-400 to-cyan-500',
-        },
-        {
-            id: 3,
-            name: 'Ania S.',
-            role: 'Dieta Sport',
-            rating: 5,
-            text: 'Jako trenerka personalna polecam Głodnego Niedźwiedzia wszystkim swoim podopiecznym. Makra idealnie dobrane!',
-            avatar: '💪',
-            accent: 'from-amber-400 to-orange-500',
-        },
-        {
-            id: 4,
-            name: 'Kacper M.',
-            role: 'Dieta Redukcja',
-            rating: 5,
-            text: 'W końcu dieta, na której nie czuję się głodny. Posiłki są sycące, smaczne i urozmaicone. Polecam każdemu!',
-            avatar: '🧑‍🍳',
-            accent: 'from-emerald-400 to-green-500',
-        },
-        {
-            id: 5,
-            name: 'Ola P.',
-            role: 'Klientka od 3 miesięcy',
-            rating: 5,
-            text: 'Elastyczność jest niesamowita – mogę zmieniać posiłki z dnia na dzień. Do tego aplikacja jest super wygodna!',
-            avatar: '👩‍🎨',
-            accent: 'from-violet-400 to-purple-500',
-        },
-        {
-            id: 6,
-            name: 'Bartek R.',
-            role: 'Dieta Keto',
-            rating: 5,
-            text: 'Keto bez wyrzeczeń? Tak, to jest możliwe! Świetne tłuszcze, zero cukru i smak, który zaskakuje każdego dnia.',
-            avatar: '🏋️',
-            accent: 'from-yellow-400 to-amber-500',
-        },
-    ],
-    // Row 2 – scrolls left
-    [
-        {
-            id: 7,
-            name: 'Magda L.',
-            role: 'Dieta Wege',
-            rating: 5,
-            text: 'Myślałam, że dieta wegańska będzie nudna. Głodny Niedźwiedź udowodnił mi, że się myliłam – jest wspaniale!',
-            avatar: '🌿',
-            accent: 'from-green-400 to-emerald-500',
-        },
-        {
-            id: 8,
-            name: 'Piotr D.',
-            role: 'Klient od 6 miesięcy',
-            rating: 5,
-            text: 'Dostawa zawsze przed 6 rano, ciepłe jeszcze posiłki i zero plastiku. Tak powinien wyglądać catering w 2025!',
-            avatar: '🚀',
-            accent: 'from-cyan-400 to-blue-500',
-        },
-        {
-            id: 9,
-            name: 'Karolina N.',
-            role: 'Dieta Low IG',
-            rating: 4,
-            text: 'Mój cukier się ustabilizował po 2 tygodniach. Lekarz był zdziwiony wynikami – ja nie, bo wiem co jem!',
-            avatar: '👩‍⚕️',
-            accent: 'from-purple-400 to-indigo-500',
-        },
-        {
-            id: 10,
-            name: 'Michał Z.',
-            role: 'Dieta Sport',
-            rating: 5,
-            text: 'Przygotowania do maratonu z Głodnym Niedźwiedziem to strzał w dziesiątkę. Energia na treningach jest na max!',
-            avatar: '🏃',
-            accent: 'from-orange-400 to-red-500',
-        },
-        {
-            id: 11,
-            name: 'Zuzia T.',
-            role: 'Klientka od 4 miesięcy',
-            rating: 5,
-            text: 'Moja mama zamówiła mi na urodziny – teraz zamawiamy razem! Najlepszy prezent jaki dostałam. Polecam z całego ♥️',
-            avatar: '💝',
-            accent: 'from-rose-400 to-pink-500',
-        },
-        {
-            id: 12,
-            name: 'Jakub K.',
-            role: 'Dieta Bez Laktozy',
-            rating: 5,
-            text: 'Wreszcie catering, który traktuje nietolerancje poważnie. Żadnych wpadek, a smak jak z restauracji!',
-            avatar: '🎯',
-            accent: 'from-teal-400 to-cyan-500',
-        },
-    ],
+const staticTestimonials = [
+    // Row 1
+    {
+        id: 1,
+        name: 'Marta K.',
+        rating: 5,
+        avatar: '👩‍💼',
+        accent: 'from-pink-400 to-rose-500',
+    },
+    {
+        id: 2,
+        name: 'Tomek W.',
+        rating: 5,
+        avatar: '👨‍💻',
+        accent: 'from-blue-400 to-cyan-500',
+    },
+    {
+        id: 3,
+        name: 'Ania S.',
+        rating: 5,
+        avatar: '💪',
+        accent: 'from-amber-400 to-orange-500',
+    },
+    {
+        id: 4,
+        name: 'Kacper M.',
+        rating: 5,
+        avatar: '🧑‍🍳',
+        accent: 'from-emerald-400 to-green-500',
+    },
+    {
+        id: 5,
+        name: 'Ola P.',
+        rating: 5,
+        avatar: '👩‍🎨',
+        accent: 'from-violet-400 to-purple-500',
+    },
+    {
+        id: 6,
+        name: 'Bartek R.',
+        rating: 5,
+        avatar: '🏋️',
+        accent: 'from-yellow-400 to-amber-500',
+    },
+    // Row 2
+    {
+        id: 7,
+        name: 'Magda L.',
+        rating: 5,
+        avatar: '🌿',
+        accent: 'from-green-400 to-emerald-500',
+    },
+    {
+        id: 8,
+        name: 'Piotr D.',
+        rating: 5,
+        avatar: '🚀',
+        accent: 'from-cyan-400 to-blue-500',
+    },
+    {
+        id: 9,
+        name: 'Karolina N.',
+        rating: 4,
+        avatar: '👩‍⚕️',
+        accent: 'from-purple-400 to-indigo-500',
+    },
+    {
+        id: 10,
+        name: 'Michał Z.',
+        rating: 5,
+        avatar: '🏃',
+        accent: 'from-orange-400 to-red-500',
+    },
+    {
+        id: 11,
+        name: 'Zuzia T.',
+        rating: 5,
+        avatar: '💝',
+        accent: 'from-rose-400 to-pink-500',
+    },
+    {
+        id: 12,
+        name: 'Jakub K.',
+        rating: 5,
+        avatar: '🎯',
+        accent: 'from-teal-400 to-cyan-500',
+    },
 ];
 
 const StarRating = ({ rating }: { rating: number }) => (
@@ -138,7 +111,9 @@ const StarRating = ({ rating }: { rating: number }) => (
     </div>
 );
 
-const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0][0] }) => (
+type TestimonialData = typeof staticTestimonials[0] & { role: string; text: string };
+
+const TestimonialCard = ({ testimonial }: { testimonial: TestimonialData }) => (
     <div className="testimonial-card group relative flex-shrink-0 w-[340px] md:w-[400px]">
         <div className={`relative h-full overflow-hidden rounded-[1.5rem] bg-white/70 backdrop-blur-xl border border-white/60 p-6 transition-all duration-500 hover:bg-white/90 hover:border-white/80 hover:shadow-2xl shadow-lg`}>
             {/* Gradient glow on hover */}
@@ -175,6 +150,17 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0][
 export const Testimonials = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+    const t = useTranslation();
+
+    // Merge static data with translations
+    const testimonialsData: TestimonialData[] = staticTestimonials.map(item => ({
+        ...item,
+        role: t.testimonials.items[item.id as keyof typeof t.testimonials.items].role,
+        text: t.testimonials.items[item.id as keyof typeof t.testimonials.items].text,
+    }));
+
+    const row1 = testimonialsData.slice(0, 6);
+    const row2 = testimonialsData.slice(6, 12);
 
     return (
         <section className="relative py-16 md:py-24 overflow-hidden bg-white" id="opinie">
@@ -188,7 +174,7 @@ export const Testimonials = () => {
                         transition={{ duration: 0.7 }}
                     >
                         <span className="inline-block py-1.5 px-5 rounded-full border border-black/5 bg-white/40 backdrop-blur-md text-xs font-bold tracking-[0.2em] uppercase text-gray-900 mb-4">
-                            Opinie klientów
+                            {t.testimonials.badge}
                         </span>
                     </motion.div>
 
@@ -198,9 +184,9 @@ export const Testimonials = () => {
                         animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
                         transition={{ duration: 0.8, delay: 0.15 }}
                     >
-                        Nasi klienci{' '}
+                        {t.testimonials.title1}{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-pink-600">
-                            mówią za nas.
+                            {t.testimonials.title2}
                         </span>
                     </motion.h2>
 
@@ -210,7 +196,7 @@ export const Testimonials = () => {
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ duration: 0.6, delay: 0.35 }}
                     >
-                        Ponad 2 300 opinii na Google z oceną 4.9/5. Przekonaj się sam.
+                        {t.testimonials.description}
                     </motion.p>
                 </div>
 
@@ -225,7 +211,7 @@ export const Testimonials = () => {
                     <div className="testimonials-row mb-6">
                         <div className="testimonials-track testimonials-scroll-right">
                             {/* Triple the items for seamless loop */}
-                            {[...testimonials[0], ...testimonials[0], ...testimonials[0]].map((t, i) => (
+                            {[...row1, ...row1, ...row1].map((t, i) => (
                                 <TestimonialCard key={`row1-${i}`} testimonial={t} />
                             ))}
                         </div>
@@ -235,7 +221,7 @@ export const Testimonials = () => {
                     <div className="testimonials-row">
                         <div className="testimonials-track testimonials-scroll-left">
                             {/* Triple the items for seamless loop */}
-                            {[...testimonials[1], ...testimonials[1], ...testimonials[1]].map((t, i) => (
+                            {[...row2, ...row2, ...row2].map((t, i) => (
                                 <TestimonialCard key={`row2-${i}`} testimonial={t} />
                             ))}
                         </div>

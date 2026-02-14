@@ -1,8 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const DietSelectionCTA = () => {
+    const t = useTranslation();
+
     return (
         <section className="relative py-24 overflow-hidden">
             {/* Background with Gradient and Grain */}
@@ -18,18 +21,18 @@ export const DietSelectionCTA = () => {
             <Container className="relative z-10 text-center">
                 <div className="max-w-3xl mx-auto space-y-8">
                     <h2 className="text-4xl md:text-6xl font-bold font-display tracking-tighter text-black leading-[1.1] drop-shadow-sm">
-                        Nie wiesz, która dieta <br />
-                        będzie <span className="text-white drop-shadow-md italic serif">idealna?</span>
+                        {t.dietSelectionCTA.title} <br />
+                        <span className="text-white drop-shadow-md italic serif">{t.dietSelectionCTA.title2}</span>
                     </h2>
 
                     <p className="text-xl md:text-2xl text-black/80 font-medium max-w-2xl mx-auto leading-relaxed">
-                        Wypełnij nasz krótki quiz, a nasz algorytm dobierz plan żywieniowy dopasowany idealnie do Twoich potrzeb i celów.
+                        {t.dietSelectionCTA.subtitle}
                     </p>
 
                     <div className="pt-4">
                         <Link href="/dobierz-diete">
                             <button className="bg-black text-white px-12 py-6 rounded-full text-xl font-bold hover:bg-gray-900 transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-purple-900/20 flex items-center gap-3 mx-auto group">
-                                Rozpocznij Quiz
+                                {t.dietSelectionCTA.ctaButton}
                                 <span className="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold group-hover:rotate-12 transition-transform">
                                     ?
                                 </span>
@@ -46,7 +49,7 @@ export const DietSelectionCTA = () => {
                             ))}
                         </div>
                         <p className="text-sm font-bold text-black/60 uppercase tracking-widest">
-                            Dołącz do 5000+ zadowolonych klientów
+                            {t.dietSelectionCTA.joinText}
                         </p>
                     </div>
                 </div>

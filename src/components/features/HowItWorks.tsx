@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const HowItWorks = () => {
+    const t = useTranslation();
+
     return (
         <section className="bg-white relative" id="how-it-works">
             <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
@@ -10,16 +13,16 @@ export const HowItWorks = () => {
                     <div className="sticky top-0 h-screen flex flex-col justify-center px-12">
                         <div className="space-y-8 relative z-10">
                             <h2 className="text-6xl md:text-8xl font-bold font-display tracking-tighter text-[#111111] leading-[0.9]">
-                                Jak <br />
-                                <span className="italic font-serif font-light text-[#111111] opacity-90">to</span> <br />
-                                Działa.
+                                {t.howItWorks.title1} <br />
+                                <span className="italic font-serif font-light text-[#111111] opacity-90">{t.howItWorks.title2}</span> <br />
+                                {t.howItWorks.title3}
                             </h2>
                             <p className="text-xl md:text-2xl font-light text-gray-800/90 max-w-lg leading-relaxed text-balance">
-                                Krótko i konkretnie: <br />
-                                <span className="font-semibold text-black">wybierasz → my gotujemy → dostarczamy rano.</span>
+                                {t.howItWorks.subtitle} <br />
+                                <span className="font-semibold text-black">{t.howItWorks.subtitleBold}</span>
                             </p>
                             <p className="text-gray-500 text-lg">
-                                To zbija obawy i skraca myślenie.
+                                {t.howItWorks.description}
                             </p>
                         </div>
                     </div>
@@ -28,10 +31,10 @@ export const HowItWorks = () => {
                 {/* Mobile Title (visible only on smaller screens) */}
                 <div className="lg:hidden px-4 pt-16">
                     <h2 className="text-5xl font-bold font-display tracking-tighter text-[#111111] leading-[0.9] mb-4">
-                        Jak <span className="italic font-serif font-light opacity-90">to</span> Działa.
+                        {t.howItWorks.title1} <span className="italic font-serif font-light opacity-90">{t.howItWorks.title2}</span> {t.howItWorks.title3}
                     </h2>
                     <p className="text-lg text-gray-600 mb-8">
-                        Krótko i konkretnie: wybierasz → my gotujemy → dostarczamy rano.
+                        {t.howItWorks.subtitle} {t.howItWorks.subtitleBold}
                     </p>
                 </div>
 
@@ -45,10 +48,9 @@ export const HowItWorks = () => {
                             <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-3xl">👇</div>
                         </div>
                         <div className="mt-8">
-                            <h3 className="text-5xl font-bold font-display text-white mb-4">Wybierasz</h3>
+                            <h3 className="text-5xl font-bold font-display text-white mb-4">{t.howItWorks.steps[1].title}</h3>
                             <p className="text-white/90 text-xl font-medium max-w-sm leading-relaxed">
-                                Twój cel, Twoje smaki. <br />
-                                Wygodnie w panelu klienta.
+                                {t.howItWorks.steps[1].desc}
                             </p>
                         </div>
                     </div>
@@ -60,10 +62,9 @@ export const HowItWorks = () => {
                             <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-3xl">👨‍🍳</div>
                         </div>
                         <div className="mt-8">
-                            <h3 className="text-5xl font-bold font-display text-white mb-4">Gotujemy</h3>
+                            <h3 className="text-5xl font-bold font-display text-white mb-4">{t.howItWorks.steps[2].title}</h3>
                             <p className="text-white/90 text-xl font-medium max-w-sm leading-relaxed">
-                                Świeże składniki, zero chemii. <br />
-                                Szef kuchni czuwa nad smakiem.
+                                {t.howItWorks.steps[2].desc}
                             </p>
                         </div>
                     </div>
@@ -75,10 +76,9 @@ export const HowItWorks = () => {
                             <div className="w-16 h-16 bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-3xl">🚀</div>
                         </div>
                         <div className="mt-8">
-                            <h3 className="text-5xl font-bold font-display text-black mb-4">Dostarczamy</h3>
+                            <h3 className="text-5xl font-bold font-display text-black mb-4">{t.howItWorks.steps[3].title}</h3>
                             <p className="text-black/70 text-xl font-medium max-w-sm leading-relaxed">
-                                Pod Twoje drzwi, zanim wstaniesz. <br />
-                                Codziennie rano.
+                                {t.howItWorks.steps[3].desc}
                             </p>
                         </div>
                     </div>

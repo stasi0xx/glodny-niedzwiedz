@@ -3,63 +3,65 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-
-const sampleMeals = [
-    {
-        id: 1,
-        type: 'Śniadanie',
-        name: 'Królewski Omlet z Awokado',
-        macros: 'B: 25g • T: 20g • W: 5g • 350 kcal',
-        description: 'Puszysty omlet z jajek "zerówek" z dodatkiem świeżego awokado, pomidorków koktajlowych i szczypiorku. Idealny start dnia pełen energii.',
-        image: 'https://images.unsplash.com/photo-1494390248081-4e521a5940db?q=80&w=800&auto=format&fit=crop',
-        color: 'bg-orange-50',
-        buttonColor: 'bg-orange-500 hover:bg-orange-600',
-    },
-    {
-        id: 2,
-        type: 'II Śniadanie',
-        name: 'Energetyczne Smoothie Bowl',
-        macros: 'B: 10g • T: 8g • W: 45g • 280 kcal',
-        description: 'Gęsty koktajl z jagód i banana, posypany domową granolą, nasionami chia i wiórkami kokosowymi. Bomba witaminowa.',
-        image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=800&auto=format&fit=crop',
-        color: 'bg-purple-50',
-        buttonColor: 'bg-purple-500 hover:bg-purple-600',
-    },
-    {
-        id: 3,
-        type: 'Obiad',
-        name: 'Łosoś z Komosą Ryżową',
-        macros: 'B: 35g • T: 25g • W: 40g • 550 kcal',
-        description: 'Pieczony filet z łososia podawany na komosie ryżowej z blanszowanymi brokułami i sosem cytrynowo-koperkowym.',
-        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop',
-        color: 'bg-emerald-50',
-        buttonColor: 'bg-emerald-500 hover:bg-emerald-600',
-    },
-    {
-        id: 4,
-        type: 'Podwieczorek',
-        name: 'Sałatka z Grillowanym Halloumi',
-        macros: 'B: 15g • T: 20g • W: 10g • 320 kcal',
-        description: 'Chrupiąca mieszanka sałat z grillowanym serem Halloumi, granatem i orzechami włoskimi, skropiona miodowym winegretem.',
-        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop',
-        color: 'bg-green-50',
-        buttonColor: 'bg-green-600 hover:bg-green-700',
-    },
-    {
-        id: 5,
-        type: 'Kolacja',
-        name: 'Lekka Sałatka z Indykiem',
-        macros: 'B: 28g • T: 10g • W: 15g • 300 kcal',
-        description: 'Delikatne paski indyka na rukoli z suszonymi pomidorami i pestkami dyni. Lekka kolacja, która nie obciąża na noc.',
-        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800&auto=format&fit=crop',
-        color: 'bg-blue-50',
-        buttonColor: 'bg-blue-500 hover:bg-blue-600',
-    },
-];
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const SampleMenu = () => {
     // Ref for the pinning container
     const targetRef = useRef<HTMLDivElement>(null);
+    const t = useTranslation();
+
+    const sampleMeals = [
+        {
+            id: 1,
+            type: t.sampleMenu.meals[1].type,
+            name: t.sampleMenu.meals[1].name,
+            macros: `B: ${t.sampleMenu.meals[1].protein} • T: ${t.sampleMenu.meals[1].fat} • W: ${t.sampleMenu.meals[1].carbs} • ${t.sampleMenu.meals[1].calories}`,
+            description: t.sampleMenu.meals[1].desc,
+            image: 'https://images.unsplash.com/photo-1494390248081-4e521a5940db?q=80&w=800&auto=format&fit=crop',
+            color: 'bg-orange-50',
+            buttonColor: 'bg-orange-500 hover:bg-orange-600',
+        },
+        {
+            id: 2,
+            type: t.sampleMenu.meals[2].type,
+            name: t.sampleMenu.meals[2].name,
+            macros: `B: ${t.sampleMenu.meals[2].protein} • T: ${t.sampleMenu.meals[2].fat} • W: ${t.sampleMenu.meals[2].carbs} • ${t.sampleMenu.meals[2].calories}`,
+            description: t.sampleMenu.meals[2].desc,
+            image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=800&auto=format&fit=crop',
+            color: 'bg-purple-50',
+            buttonColor: 'bg-purple-500 hover:bg-purple-600',
+        },
+        {
+            id: 3,
+            type: t.sampleMenu.meals[3].type,
+            name: t.sampleMenu.meals[3].name,
+            macros: `B: ${t.sampleMenu.meals[3].protein} • T: ${t.sampleMenu.meals[3].fat} • W: ${t.sampleMenu.meals[3].carbs} • ${t.sampleMenu.meals[3].calories}`,
+            description: t.sampleMenu.meals[3].desc,
+            image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop',
+            color: 'bg-emerald-50',
+            buttonColor: 'bg-emerald-500 hover:bg-emerald-600',
+        },
+        {
+            id: 4,
+            type: t.sampleMenu.meals[4].type,
+            name: t.sampleMenu.meals[4].name,
+            macros: `B: ${t.sampleMenu.meals[4].protein} • T: ${t.sampleMenu.meals[4].fat} • W: ${t.sampleMenu.meals[4].carbs} • ${t.sampleMenu.meals[4].calories}`,
+            description: t.sampleMenu.meals[4].desc,
+            image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop',
+            color: 'bg-green-50',
+            buttonColor: 'bg-green-600 hover:bg-green-700',
+        },
+        {
+            id: 5,
+            type: t.sampleMenu.meals[5].type,
+            name: t.sampleMenu.meals[5].name,
+            macros: `B: ${t.sampleMenu.meals[5].protein} • T: ${t.sampleMenu.meals[5].fat} • W: ${t.sampleMenu.meals[5].carbs} • ${t.sampleMenu.meals[5].calories}`,
+            description: t.sampleMenu.meals[5].desc,
+            image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800&auto=format&fit=crop',
+            color: 'bg-blue-50',
+            buttonColor: 'bg-blue-500 hover:bg-blue-600',
+        },
+    ];
 
     // Scroll progress for the entire pinned section
     const { scrollYProgress } = useScroll({
@@ -80,12 +82,11 @@ export const SampleMenu = () => {
                     {/* Section Header (Fixed or Moving? Fixed inside sticky container feels best) */}
                     <div className="absolute top-12 left-12 z-20">
                         <h2 className="text-7xl font-bold font-display tracking-tighter text-black mb-2 leading-[0.9]">
-                            Przykładowe <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-600">Menu.</span>
+                            {t.sampleMenu.title1} <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-600">{t.sampleMenu.title2}</span>
                         </h2>
                         <p className="text-xl text-gray-600 max-w-sm">
-                            Jeden dzień, 5 posiłków. <br />
-
+                            {t.sampleMenu.subtitle} <br />
                         </p>
                     </div>
 
@@ -124,13 +125,13 @@ export const SampleMenu = () => {
                                     </div>
 
                                     <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                                        <p className="text-xs font-bold text-gray-800 tracking-widest uppercase mb-1">Makroskładniki</p>
+                                        <p className="text-xs font-bold text-gray-800 tracking-widest uppercase mb-1">{t.sampleMenu.macros}</p>
                                         <p className="text-gray-600 font-medium text-lg">{meal.macros}</p>
                                     </div>
 
                                     <Link href="/dobierz-diete" className="inline-block w-full">
                                         <button className={`w-full py-5 rounded-full text-white font-bold shadow-lg text-lg transform transition-all hover:-translate-y-1 active:scale-95 ${meal.buttonColor}`}>
-                                            Zamów Tę Dietę
+                                            {t.sampleMenu.orderDiet}
                                         </button>
                                     </Link>
                                 </div>
@@ -145,11 +146,11 @@ export const SampleMenu = () => {
             <div className="lg:hidden py-16 px-4">
                 <div className="mb-12 text-center">
                     <h2 className="text-5xl font-bold font-display tracking-tighter text-black mb-4 leading-[0.9]">
-                        Przykładowe <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-600">Menu.</span>
+                        {t.sampleMenu.title1} <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-600">{t.sampleMenu.title2}</span>
                     </h2>
                     <p className="text-lg text-gray-600">
-                        Przewiń, by zobaczyć pyszne posiłki na cały dzień.
+                        {t.sampleMenu.mobileSubtitle}
                     </p>
                 </div>
 
@@ -184,13 +185,13 @@ export const SampleMenu = () => {
                                 </p>
 
                                 <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
-                                    <p className="text-xs font-bold text-gray-800 tracking-wide uppercase">Makro</p>
+                                    <p className="text-xs font-bold text-gray-800 tracking-wide uppercase">{t.sampleMenu.macros}</p>
                                     <p className="text-gray-600 font-medium text-sm mt-1">{meal.macros}</p>
                                 </div>
 
                                 <Link href="/dobierz-diete">
                                     <button className={`w-full py-4 rounded-full text-white font-bold shadow-md ${meal.buttonColor}`}>
-                                        Zamów
+                                        {t.sampleMenu.orderDiet}
                                     </button>
                                 </Link>
                             </div>
