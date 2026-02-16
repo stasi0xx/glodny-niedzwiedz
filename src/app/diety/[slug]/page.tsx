@@ -6,9 +6,11 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { DietConfigurator } from '@/components/features/DietConfigurator';
 import { DietReviews } from '@/components/features/DietReviews';
-import { DietMacros } from '@/components/features/DietMacros';
+// DietMacros is now part of DietTimeline
 import { DietSampleMenu } from '@/components/features/DietSampleMenu';
 import { OfferFAQ } from '@/components/features/OfferFAQ';
+import { DietStickyBottomBar } from '@/components/features/DietStickyBottomBar';
+import { DietTimeline } from '@/components/features/DietTimeline';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -40,179 +42,213 @@ export default async function DietDetailsPage({ params }: PageProps) {
 
     return (
         <div className="bg-white min-h-screen pb-20 font-sans">
-            {/* Hero Section */}
-            <div className="relative bg-gray-900 pt-24 pb-32 text-white overflow-hidden">
-                {/* Background Pattern/Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900/40 z-0"></div>
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-no-repeat bg-right-top opacity-10" style={{ backgroundImage: `url(${diet.image})`, backgroundSize: 'cover' }}></div>
+            {/* Hero Section - Redesigned to match main page & inspiration */}
+            <div className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#FAFAFA]">
+                {/* Background Blobs (matching main page style) */}
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] bg-gradient-to-br from-[#FF9A9E] to-[#FECFEF] opacity-20 blur-[120px] rounded-full pointer-events-none" />
+                <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-gradient-to-tr from-[#A18CD1] to-[#FBC2EB] opacity-20 blur-[100px] rounded-full pointer-events-none" />
+
+                {/* Subtle Grain Texture if available globally, otherwise just clean */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("/noise.png")' }}></div>
 
                 <Container className="relative z-10">
-                    <div className="max-w-4xl">
-                        <Link href="/oferta" className="inline-flex items-center text-emerald-400 text-sm font-bold hover:text-emerald-300 mb-6 transition-colors">
-                            <span className="mr-2">←</span> Wróć do oferty
-                        </Link>
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-                        <div className="flex flex-wrap gap-3 mb-6">
-                            {diet.tags.map(tag => (
-                                <span key={tag} className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-xs font-bold tracking-wide uppercase text-emerald-300">
-                                    {tag}
-                                </span>
-                            ))}
+                        {/* Left Column: Image (Inspired by screenshot) */}
+                        <div className="relative order-2 lg:order-1">
+                            {/* Decorative organic shape behind image */}
+                            <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] text-emerald-50/80 -z-10" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="currentColor" d="M42.7,-72.2C56.2,-65.8,68.6,-57.5,77.7,-46.6C86.8,-35.8,92.6,-22.3,91.3,-9.1C90,4.1,81.6,17.1,72.9,28.8C64.2,40.5,55.1,51,44.2,59.3C33.3,67.6,20.6,73.7,7.2,74.9C-6.2,76.1,-20.3,72.4,-32.8,65.6C-45.3,58.8,-56.2,48.9,-65.3,37.3C-74.4,25.7,-81.7,12.4,-80.7,0.6C-79.7,-11.2,-70.4,-21.5,-60.7,-30.9C-51,-40.3,-40.9,-48.8,-29.8,-56.3C-18.7,-63.8,-6.6,-70.3,3.9,-76.8C14.4,-83.3,29.3,-89.8,42.7,-72.2Z" transform="translate(100 100)" />
+                            </svg>
+
+                            <div className="relative z-10 p-4">
+                                {/* Price Badge */}
+                                <div className="absolute -top-4 -right-4 lg:-right-8 lg:-top-8 bg-[#FF4F6E] text-white rounded-full w-28 h-28 lg:w-36 lg:h-36 flex flex-col items-center justify-center shadow-xl rotate-12 z-20 border-[6px] border-white animate-float" style={{ animationDuration: '5s' }}>
+                                    <span className="text-[10px] lg:text-xs font-bold uppercase tracking-wide opacity-90">Już od</span>
+                                    <span className="text-2xl lg:text-3xl font-bold">{diet.priceFrom} zł</span>
+                                    <span className="text-[10px] lg:text-xs opacity-90">za dzień</span>
+                                </div>
+
+                                {/* Placeholder Image if diet.image is distinct, else use a nice wrapper */}
+                                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-emerald-900/10 rotate-[-2deg] hover:rotate-0 transition-transform duration-500 bg-white p-2">
+                                    <div className="rounded-[2rem] overflow-hidden aspect-[4/3] bg-gray-100 relative">
+                                        {/* Use img tag directly or Next Image if configured. Using img for safety with external/mock data */}
+                                        <img
+                                            src={diet.image}
+                                            alt={diet.name}
+                                            className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                                        />
+                                        {/* Fallback pattern if image fails (simulated) */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 -z-10 flex items-center justify-center text-gray-300 font-bold text-4xl">
+                                            {diet.name}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
-                            {diet.name}
-                        </h1>
+                        {/* Right Column: Text Content */}
+                        <div className="order-1 lg:order-2 space-y-8 text-center lg:text-left">
+                            <Link href="/oferta" className="inline-flex items-center text-gray-500 text-sm font-bold hover:text-black mb-2 transition-colors group">
+                                <span className="mr-2 transform group-hover:-translate-x-1 transition-transform">←</span> Wróć do oferty
+                            </Link>
 
-                        <p className="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl mb-8">
-                            {diet.description}
-                        </p>
+                            <div>
+                                <h1 className="text-5xl lg:text-7xl font-bold font-display tracking-tight text-[#111111] leading-[0.9] mb-4">
+                                    {diet.name}
+                                </h1>
+                                <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-6">
+                                    {diet.tags.map(tag => (
+                                        <span key={tag} className="px-3 py-1 bg-emerald-100/50 text-emerald-800 text-xs font-bold rounded-full uppercase tracking-wider border border-emerald-100">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                                    {diet.description}
+                                </p>
+                            </div>
 
-                        <div className="flex flex-wrap gap-8 text-sm font-medium text-gray-400">
-                            <div className="flex items-center gap-2">
-                                <span className="p-1.5 bg-white/5 rounded-md">🔥</span>
-                                {Math.min(...diet.kcalOptions)}-{Math.max(...diet.kcalOptions)} kcal
+                            {/* Macros Divider - Organic Shapes */}
+                            <div className="grid grid-cols-3 gap-2 sm:gap-6 py-8">
+                                <div className="relative group">
+                                    <div className="absolute inset-0 bg-blue-100/60 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] blur-sm group-hover:blur-md transition-all duration-500 rotate-12 scale-90"></div>
+                                    <div className="relative z-10 text-center p-3">
+                                        <p className="text-[10px] uppercase tracking-widest text-blue-800/60 font-bold mb-1">Białko</p>
+                                        <p className="font-display font-bold text-gray-900 text-xl sm:text-2xl">{diet.macros.protein.min}-{diet.macros.protein.max}%</p>
+                                    </div>
+                                </div>
+                                <div className="relative group">
+                                    <div className="absolute inset-0 bg-yellow-100/60 rounded-[50%_50%_30%_70%_/_50%_50%_70%_30%] blur-sm group-hover:blur-md transition-all duration-500 -rotate-6 scale-90"></div>
+                                    <div className="relative z-10 text-center p-3">
+                                        <p className="text-[10px] uppercase tracking-widest text-yellow-800/60 font-bold mb-1">Tłuszcze</p>
+                                        <p className="font-display font-bold text-gray-900 text-xl sm:text-2xl">{diet.macros.fat.min}-{diet.macros.fat.max}%</p>
+                                    </div>
+                                </div>
+                                <div className="relative group">
+                                    <div className="absolute inset-0 bg-pink-100/60 rounded-[40%_60%_70%_30%_/_40%_50%_60%_50%] blur-sm group-hover:blur-md transition-all duration-500 rotate-45 scale-90"></div>
+                                    <div className="relative z-10 text-center p-3">
+                                        <p className="text-[10px] uppercase tracking-widest text-pink-800/60 font-bold mb-1">Węglowodany</p>
+                                        <p className="font-display font-bold text-gray-900 text-xl sm:text-2xl">{diet.macros.carbs.min}-{diet.macros.carbs.max}%</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <span className="p-1.5 bg-white/5 rounded-md">🍽️</span>
-                                {(diet.mealsOptions || [3, 5]).join('/')} posiłków
+
+                            {/* Calories Options - Nicer Presentation */}
+                            <div className="space-y-4 mb-8">
+                                <div className="flex items-center gap-2 mb-2 justify-center lg:justify-start">
+
+                                    <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">Dostępne kaloryczności</p>
+                                </div>
+                                <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                                    {diet.kcalOptions.map(k => (
+                                        <div key={k} className="group relative cursor-default">
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-300 to-purple-300 rounded-xl opacity-20 group-hover:opacity-100 blur transition duration-200"></div>
+                                            <div className="relative px-5 py-3 bg-white rounded-xl border border-gray-100 shadow-sm flex items-center gap-2 group-hover:-translate-y-1 transition-transform">
+                                                <span className="font-bold text-gray-800 text-lg">{k}</span>
+                                                <span className="text-[10px] text-gray-400 font-medium uppercase mt-1">kcal</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <span className="p-1.5 bg-white/5 rounded-md">💰</span>
-                                od {diet.priceFrom} zł / dzień
+
+                            {/* Actions */}
+                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                                <Link href={`/zamowienie?diet=${diet.slug}`} className="flex-1 sm:flex-none">
+                                    <Button className="w-full sm:w-auto bg-[#FF4F6E] hover:bg-[#ff3355] text-white px-8 py-6 rounded-full text-lg shadow-lg shadow-pink-500/30 transition-transform hover:scale-105 active:scale-95">
+                                        Zamów dietę →
+                                    </Button>
+                                </Link>
+                                <a href="#menu" className="flex-1 sm:flex-none">
+                                    <Button variant="outline" className="w-full sm:w-auto border-2 border-gray-200 text-gray-900 px-8 py-6 rounded-full text-lg hover:border-black hover:bg-transparent transition-colors">
+                                        Zobacz menu
+                                    </Button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </Container>
             </div>
 
-            <Container className="transform -translate-y-12 relative z-20">
+            <Container className="relative z-20 -mt-12 lg:mt-0">
                 <div className="grid lg:grid-cols-[1fr,380px] gap-12 items-start">
 
                     {/* Left Column: Content */}
-                    <div className="space-y-16">
+                    <div className="space-y-16 min-w-0">
 
-                        {/* Intro & Target Audience */}
-                        <section className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                            <h2 className="text-2xl font-bold mb-6 text-gray-900">O diecie {diet.name}</h2>
-                            <p className="text-gray-600 leading-relaxed mb-8 text-lg">
-                                {diet.extendedDescription || diet.description}
-                            </p>
+                        {/* Sample Menu - Moved Here */}
+                        <div className="mb-0">
+                            <DietSampleMenu menu={diet.sampleMenu} dietName={diet.name} />
+                        </div>
 
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="text-emerald-500">✅</span> Dla kogo?
-                                    </h3>
-                                    <ul className="space-y-3">
+                        {/* Intro & Target Audience - Modernist Redesign */}
+                        <section className="bg-white py-8">
+
+                            {/* Creative Title Area */}
+                            <div className="mb-16 relative">
+                                <span className="absolute -top-6 -left-6 text-9xl text-gray-50 opacity-50 font-display font-bold select-none -z-10">O</span>
+                                <h2 className="text-5xl md:text-6xl font-display font-bold text-gray-900 leading-[0.9] tracking-tight">
+                                    O diecie <br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">{diet.name}</span>
+                                </h2>
+                                <div className="h-1.5 w-24 bg-black mt-6 mb-8"></div>
+                                <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed max-w-3xl">
+                                    {diet.extendedDescription || diet.description}
+                                </p>
+                            </div>
+
+                            {/* Split Layout with Divider Line */}
+                            <div className="relative grid md:grid-cols-2 gap-12 md:gap-24">
+                                {/* Vertical Divider (Desktop) */}
+                                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -ml-px"></div>
+
+                                {/* Pros / For Whom */}
+                                <div className="space-y-8">
+                                    <div className="inline-block relative">
+                                        <div className="absolute inset-0 bg-emerald-100 transform -skew-x-12 -z-10"></div>
+                                        <h3 className="text-3xl font-bold text-gray-900 px-2">Dla kogo?</h3>
+                                    </div>
+
+                                    <ul className="space-y-6">
                                         {diet.targetAudience?.map((item, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-gray-600 text-sm">
-                                                <span className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
-                                                {item}
+                                            <li key={i} className="group flex items-start gap-5">
+                                                <span className="flex items-center justify-center w-8 h-8 rounded-full border border-emerald-500/30 text-emerald-600 text-sm font-bold group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300 shrink-0">
+                                                    {i + 1}
+                                                </span>
+                                                <span className="text-lg text-gray-700 font-medium leading-relaxed group-hover:text-gray-900 transition-colors">
+                                                    {item}
+                                                </span>
                                             </li>
-                                        )) || <li className="text-gray-400 text-sm">Brak danych</li>}
+                                        )) || <li className="text-gray-400">Brak danych</li>}
                                     </ul>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="text-red-400">❌</span> Nie dla ciebie, jeśli...
-                                    </h3>
-                                    <ul className="space-y-3">
+
+                                {/* Cons / Not For Whom */}
+                                <div className="space-y-8">
+                                    <div className="inline-block relative">
+                                        <div className="absolute inset-0 bg-red-100 transform -skew-x-12 -z-10"></div>
+                                        <h3 className="text-3xl font-bold text-gray-900 px-2">Nie dla Ciebie</h3>
+                                    </div>
+
+                                    <ul className="space-y-6">
                                         {diet.notFor?.map((item, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-gray-600 text-sm">
-                                                <span className="mt-1 w-1.5 h-1.5 rounded-full bg-red-300 flex-shrink-0"></span>
-                                                {item}
+                                            <li key={i} className="group flex items-start gap-5">
+                                                <span className="flex items-center justify-center w-8 h-8 rounded-full border border-red-400/30 text-red-500 text-sm font-bold group-hover:bg-red-500 group-hover:text-white transition-all duration-300 shrink-0">
+                                                    ✕
+                                                </span>
+                                                <span className="text-lg text-gray-700 font-medium leading-relaxed group-hover:text-gray-900 transition-colors">
+                                                    {item}
+                                                </span>
                                             </li>
-                                        )) || <li className="text-gray-400 text-sm">Brak danych</li>}
+                                        )) || <li className="text-gray-400">Brak danych</li>}
                                     </ul>
                                 </div>
                             </div>
                         </section>
 
-                        {/* USP / Highlights */}
-                        <section>
-                            <h2 className="text-2xl font-bold mb-8 text-gray-900">Dlaczego warto wybrać ten wariant?</h2>
-                            <div className="grid sm:grid-cols-3 gap-6">
-                                {diet.highlights.map((h, i) => (
-                                    <div key={i} className="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100/50 hover:bg-emerald-50 transition-colors">
-                                        <div className="text-3xl mb-4">✨</div>
-                                        <h3 className="font-bold text-gray-900 mb-2">{h}</h3>
-                                        <p className="text-sm text-gray-500">
-                                            Krótki opis benefitu, który reinforces why this is a good choice.
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-
-                        {/* Macros & Menu */}
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <DietMacros macros={diet.macros} />
-
-                            {/* Allergens & Details */}
-                            <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col justify-between">
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2">
-                                        <span className="p-2 bg-red-50 text-red-500 rounded-lg text-lg">⚠️</span>
-                                        Alergeny i wykluczenia
-                                    </h3>
-                                    <div className="space-y-6">
-                                        <div>
-                                            <p className="text-sm font-bold text-gray-700 mb-2">Zawiera:</p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {diet.allergens.map(a => (
-                                                    <span key={a} className="px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md text-xs font-medium capitalize">
-                                                        {a}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        {diet.detailedExclusions && diet.detailedExclusions.length > 0 && (
-                                            <div>
-                                                <p className="text-sm font-bold text-gray-700 mb-2">Wyklucza:</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {diet.detailedExclusions.map(a => (
-                                                        <span key={a} className="px-2.5 py-1 bg-red-50 text-red-600 rounded-md text-xs font-medium border border-red-100">
-                                                            {a}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                        <div className="p-4 bg-gray-50 border border-gray-100 rounded-xl text-xs text-gray-500 leading-relaxed">
-                                            <strong>Uwaga:</strong> Nasz zakład przetwarza gluten, orzechy, seler i inne jaja. Produkt może zawierać śladowe ilości tych alergenów.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Sample Menu */}
-                        <div className="space-y-6">
-                            <DietSampleMenu menu={diet.sampleMenu} />
-                        </div>
-
-                        {/* Delivery & Logistics */}
-                        <section className="bg-blue-50/50 rounded-3xl p-8 border border-blue-100/50">
-                            <h2 className="text-xl font-bold mb-6 text-gray-900 flex items-center gap-3">
-                                <span className="bg-blue-100 p-2 rounded-lg text-blue-600">🚚</span>
-                                Dostawa i zmiany
-                            </h2>
-                            <div className="grid sm:grid-cols-3 gap-8">
-                                <div>
-                                    <h4 className="font-bold text-gray-900 mb-2 text-sm">Godziny dostaw</h4>
-                                    <p className="text-sm text-gray-600">Dostarczamy codziennie w nocy i nad ranem (2:00 – 7:00), aby dieta czekała pod drzwiami.</p>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 mb-2 text-sm">Zmiany w diecie</h4>
-                                    <p className="text-sm text-gray-600">Edycja zamówienia, zmiana adresu lub pauza możliwa do godz. 10:00 dwa dni przed dostawą.</p>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 mb-2 text-sm">Strefa dostaw</h4>
-                                    <p className="text-sm text-gray-600">Dozowimy do ponad 2000 miejscowości w całej Polsce. Sprawdź kod pocztowy w koszyku.</p>
-                                </div>
-                            </div>
-                        </section>
+                        {/* Timeline: Highlights, Macros, Delivery */}
+                        <DietTimeline diet={diet} />
 
                         {/* Reviews */}
                         <DietReviews reviews={diet.reviews} />
@@ -245,18 +281,8 @@ export default async function DietDetailsPage({ params }: PageProps) {
                 </div>
             </Container>
 
-            {/* Mobile Bottom Bar for action */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-50">
-                <div className="flex items-center justify-between gap-4 max-w-md mx-auto">
-                    <div>
-                        <p className="text-xs text-gray-500">Cena od</p>
-                        <p className="text-xl font-bold text-emerald-600">{diet.priceFrom} zł <span className="text-xs text-gray-400 font-normal">/dzień</span></p>
-                    </div>
-                    <Link href={`/koszyk?diet=${diet.slug}`} className="flex-1">
-                        <Button className="w-full shadow-lg shadow-emerald-500/20">Wybierz</Button>
-                    </Link>
-                </div>
-            </div>
+            {/* Sticky Bottom Bar for user action on scroll */}
+            <DietStickyBottomBar name={diet.name} priceFrom={diet.priceFrom} slug={diet.slug} />
         </div>
     );
 }

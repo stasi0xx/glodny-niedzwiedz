@@ -41,8 +41,8 @@ export const DietConfigurator: React.FC<DietConfiguratorProps> = ({ diet }) => {
                             key={kcal}
                             onClick={() => setSelectedKcal(kcal)}
                             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border-2 ${selectedKcal === kcal
-                                    ? 'bg-emerald-50 border-emerald-500 text-emerald-700 scale-105'
-                                    : 'bg-white border-gray-100 text-gray-600 hover:border-emerald-200'
+                                ? 'bg-pink-50 border-pink-500 text-pink-700 scale-105'
+                                : 'bg-white border-gray-100 text-gray-600 hover:border-pink-200'
                                 }`}
                         >
                             {kcal}
@@ -60,8 +60,8 @@ export const DietConfigurator: React.FC<DietConfiguratorProps> = ({ diet }) => {
                             key={meals}
                             onClick={() => setSelectedMeals(meals)}
                             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border-2 ${selectedMeals === meals
-                                    ? 'bg-emerald-50 border-emerald-500 text-emerald-700 scale-105'
-                                    : 'bg-white border-gray-100 text-gray-600 hover:border-emerald-200'
+                                ? 'bg-pink-50 border-pink-500 text-pink-700 scale-105'
+                                : 'bg-white border-gray-100 text-gray-600 hover:border-pink-200'
                                 }`}
                         >
                             {meals}
@@ -81,7 +81,7 @@ export const DietConfigurator: React.FC<DietConfiguratorProps> = ({ diet }) => {
                 </div>
                 <div className="text-right">
                     <span className="block text-xs text-gray-500 font-medium mb-1">Szacunkowy koszt 20 dni</span>
-                    <span className="text-lg font-bold text-emerald-600">{price * 20} zł</span>
+                    <span className="text-lg font-bold text-pink-600">{price * 20} zł</span>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@ export const DietConfigurator: React.FC<DietConfiguratorProps> = ({ diet }) => {
                 href={`/koszyk?diet=${diet.slug}&kcal=${selectedKcal}&meals=${selectedMeals}`}
                 className="block w-full"
             >
-                <Button size="lg" className="w-full py-4 text-lg shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/40 transition-shadow">
+                <Button size="lg" className="w-full bg-[#FF4F6E] hover:bg-[#ff3355] text-white py-4 text-lg shadow-lg shadow-pink-500/30 hover:shadow-pink-500/40 transition-shadow">
                     Zamów teraz
                 </Button>
             </Link>
